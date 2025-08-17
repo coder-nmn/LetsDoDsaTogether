@@ -1,15 +1,61 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { IoMdHome } from "react-icons/io";
 import { CgDetailsMore } from "react-icons/cg";
 import { PiNumberSquareThreeBold, PiIntersectThreeBold } from "react-icons/pi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { LiaWpbeginner } from "react-icons/lia";
 import { Contact, Eye } from "lucide-react";
 
 const Navbar = () => {
+  const [navState, setNavState] = useState({
+    isVisible: true,
+    isShrunk: false,
+  });
+  const lastScrollY = useRef(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      // Hysteresis: only react to significant scroll
+      if (Math.abs(currentScrollY - lastScrollY.current) < 10) {
+        return;
+      }
+
+      const isScrollingDown = currentScrollY > lastScrollY.current;
+
+      if (currentScrollY <= 10) {
+        setNavState({ isVisible: true, isShrunk: false });
+      } else if (isScrollingDown) {
+        setNavState((prevState) => ({ ...prevState, isVisible: false }));
+      } else {
+        // Scrolling up
+        setNavState({ isVisible: true, isShrunk: true });
+      }
+      lastScrollY.current = currentScrollY;
+    };
+
+    const handleMouseMove = (e) => {
+      // Show navbar if mouse is near the top of the viewport
+      if (e.clientY < 60) {
+        // When mouse is at top, show the nav. It should be shrunk unless we are at the very top of the page.
+        setNavState((prevState) => ({
+          ...prevState,
+          isVisible: true,
+          isShrunk: window.scrollY > 10,
+        }));
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("mousemove", handleMouseMove);
+    };
+  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -22,14 +68,22 @@ const Navbar = () => {
   return (
     <div>
       <nav
-        className="fixed top-0 w-full z-50 py-5 px-4 sm:px-6 lg:px-8 backdrop-blur-md shadow-md transition-colors duration-300"
+        className={`fixed top-0 w-full z-50 px-4 sm:px-6 lg:px-8 transition-all duration-300 ${
+          navState.isVisible ? "translate-y-0" : "-translate-y-full"
+        } ${
+          navState.isShrunk
+            ? "py-2 bg-white/90 backdrop-blur-md shadow-md"
+            : "py-4 bg-transparent"
+        }`}
       >
         <div className="container mx-auto flex justify-between items-center">
           <Link
             to="/"
-            className="flex-shrink-0 text-2xl font-bold text-black dark:text-purple-500
+            className={`flex-shrink-0 font-bold text-black dark:text-purple-500
                                           rounded-lg  ml-2 py-2 transition-all duration-300
-                                          hover:scale-110 hover:text-2xl"
+                                          hover:scale-110 ${
+                                            navState.isShrunk ? "text-xl" : "text-2xl"
+                                          }`}
           >
             LetsDoDsa
           </Link>
@@ -41,7 +95,11 @@ const Navbar = () => {
               to="/"
               className="group relative inline-block text-black dark:text-purple-500 hover:text-purple-700 dark:hover:text-purple-700 font-medium px-4 py-2 rounded-lg transition-all duration-300  hover:shadow-sm transform hover:scale-105"
             >
-              <span className="flex items-center font-extrabold gap-2">
+              <span
+                className={`flex items-center font-extrabold gap-2 transition-all duration-300 ${
+                  navState.isShrunk ? "text-sm" : "text-base"
+                }`}
+              >
                 <IoMdHome />
                 Home
               </span>
@@ -57,7 +115,11 @@ const Navbar = () => {
              
               className="group relative inline-block text-black dark:text-purple-500 hover:text-purple-700 dark:hover:text-purple-700 font-medium px-4 py-2 rounded-lg transition-all duration-300 hover:shadow-sm transform hover:scale-105"
             >
-              <span className="flex items-center font-extrabold gap-2">
+              <span
+                className={`flex items-center font-extrabold gap-2 transition-all duration-300 ${
+                  navState.isShrunk ? "text-sm" : "text-base"
+                }`}
+              >
                 <CgDetailsMore />
                 About
               </span>
@@ -73,7 +135,11 @@ const Navbar = () => {
               
               className="group relative inline-block text-black dark:text-purple-500 hover:text-purple-700 dark:hover:text-purple-700 font-medium px-4 py-2 rounded-lg transition-all duration-300 hover:shadow-sm transform hover:scale-105"
             >
-              <span className="flex items-center font-extrabold gap-2">
+              <span
+                className={`flex items-center font-extrabold gap-2 transition-all duration-300 ${
+                  navState.isShrunk ? "text-sm" : "text-base"
+                }`}
+              >
                 <LiaWpbeginner />
                 Begineer
               </span>
@@ -89,7 +155,11 @@ const Navbar = () => {
               
               className="group relative inline-block text-black dark:text-purple-500 hover:text-purple-700 dark:hover:text-purple-700 font-medium px-4 py-2 rounded-lg transition-all duration-300 hover:shadow-sm transform hover:scale-105"
             >
-              <span className="flex items-center font-extrabold gap-2">
+              <span
+                className={`flex items-center font-extrabold gap-2 transition-all duration-300 ${
+                  navState.isShrunk ? "text-sm" : "text-base"
+                }`}
+              >
                 <PiIntersectThreeBold />
                 Advance
               </span>
@@ -105,7 +175,11 @@ const Navbar = () => {
              
               className="group relative inline-block text-black dark:text-purple-500 hover:text-purple-700 dark:hover:text-purple-700 font-medium px-4 py-2 rounded-lg transition-all duration-300 hover:shadow-sm transform hover:scale-105"
             >
-              <span className="flex items-center font-extrabold gap-2">
+              <span
+                className={`flex items-center font-extrabold gap-2 transition-all duration-300 ${
+                  navState.isShrunk ? "text-sm" : "text-base"
+                }`}
+              >
                 <PiNumberSquareThreeBold />
                 All-in-one
               </span>
@@ -121,7 +195,11 @@ const Navbar = () => {
               
               className="group relative inline-block text-black dark:text-purple-500 hover:text-purple-700 dark:hover:text-purple-700 font-medium px-4 py-2 rounded-lg transition-all duration-300 hover:shadow-sm transform hover:scale-105"
             >
-              <span className="flex items-center font-extrabold gap-2">
+              <span
+                className={`flex items-center font-extrabold gap-2 transition-all duration-300 ${
+                  navState.isShrunk ? "text-sm" : "text-base"
+                }`}
+              >
                 <Eye />
                 Visualizer
               </span>
@@ -137,7 +215,11 @@ const Navbar = () => {
               
               className="group relative inline-block text-black dark:text-purple-500 hover:text-purple-700 dark:hover:text-purple-700 font-medium px-4 py-2 rounded-lg transition-all duration-300 hover:shadow-sm transform hover:scale-105"
             >
-              <span className="flex items-center font-extrabold gap-2">
+              <span
+                className={`flex items-center font-extrabold gap-2 transition-all duration-300 ${
+                  navState.isShrunk ? "text-sm" : "text-base"
+                }`}
+              >
                 <Contact />
                 Contact
               </span>
