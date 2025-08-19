@@ -2,14 +2,12 @@ import { useState } from "react";
 import { IoMdHome } from "react-icons/io";
 import { CgDetailsMore } from "react-icons/cg";
 import { PiNumberSquareThreeBold, PiIntersectThreeBold } from "react-icons/pi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { LiaWpbeginner } from "react-icons/lia";
 import { Contact, Eye } from "lucide-react";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  const navigate = useNavigate();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -22,14 +20,14 @@ const Navbar = () => {
   return (
     <div>
       <nav
-        className="fixed top-0 w-full z-50 py-5 px-4 sm:px-6 lg:px-8 backdrop-blur-md shadow-md transition-colors duration-300"
+        className="fixed top-0 w-full z-50 py-4 px-4 sm:px-6 lg:px-8 bg-purple-700 shadow-md"
       >
         <div className="container mx-auto flex justify-between items-center">
           <Link
             to="/"
-            className="flex-shrink-0 text-2xl font-bold text-black dark:text-purple-500
+            className="flex-shrink-0 text-2xl font-bold text-white
                                           rounded-lg  ml-2 py-2 transition-all duration-300
-                                          hover:scale-110 hover:text-2xl"
+                                          hover:scale-110"
           >
             LetsDoDsa
           </Link>
@@ -39,7 +37,7 @@ const Navbar = () => {
             {/* Navigation Links */}
             <Link
               to="/"
-              className="group relative inline-block text-black dark:text-purple-500 hover:text-purple-700 dark:hover:text-purple-700 font-medium px-4 py-2 rounded-lg transition-all duration-300  hover:shadow-sm transform hover:scale-105"
+              className="group relative inline-block text-white hover:text-gray-200 font-medium px-4 py-2 rounded-lg transition-all duration-300  hover:shadow-sm transform hover:scale-105"
             >
               <span className="flex items-center font-extrabold gap-2">
                 <IoMdHome />
@@ -55,7 +53,7 @@ const Navbar = () => {
             <Link
               to="/about"
              
-              className="group relative inline-block text-black dark:text-purple-500 hover:text-purple-700 dark:hover:text-purple-700 font-medium px-4 py-2 rounded-lg transition-all duration-300 hover:shadow-sm transform hover:scale-105"
+              className="group relative inline-block text-white hover:text-gray-200 font-medium px-4 py-2 rounded-lg transition-all duration-300 hover:shadow-sm transform hover:scale-105"
             >
               <span className="flex items-center font-extrabold gap-2">
                 <CgDetailsMore />
@@ -71,7 +69,7 @@ const Navbar = () => {
             <Link
               to="/Beginner"
               
-              className="group relative inline-block text-black dark:text-purple-500 hover:text-purple-700 dark:hover:text-purple-700 font-medium px-4 py-2 rounded-lg transition-all duration-300 hover:shadow-sm transform hover:scale-105"
+              className="group relative inline-block text-white hover:text-gray-200 font-medium px-4 py-2 rounded-lg transition-all duration-300 hover:shadow-sm transform hover:scale-105"
             >
               <span className="flex items-center font-extrabold gap-2">
                 <LiaWpbeginner />
@@ -87,7 +85,7 @@ const Navbar = () => {
             <Link
               to="/Advance"
               
-              className="group relative inline-block text-black dark:text-purple-500 hover:text-purple-700 dark:hover:text-purple-700 font-medium px-4 py-2 rounded-lg transition-all duration-300 hover:shadow-sm transform hover:scale-105"
+              className="group relative inline-block text-white hover:text-gray-200 font-medium px-4 py-2 rounded-lg transition-all duration-300 hover:shadow-sm transform hover:scale-105"
             >
               <span className="flex items-center font-extrabold gap-2">
                 <PiIntersectThreeBold />
@@ -103,7 +101,7 @@ const Navbar = () => {
             <Link
               to="/All-in-on"
              
-              className="group relative inline-block text-black dark:text-purple-500 hover:text-purple-700 dark:hover:text-purple-700 font-medium px-4 py-2 rounded-lg transition-all duration-300 hover:shadow-sm transform hover:scale-105"
+              className="group relative inline-block text-white hover:text-gray-200 font-medium px-4 py-2 rounded-lg transition-all duration-300 hover:shadow-sm transform hover:scale-105"
             >
               <span className="flex items-center font-extrabold gap-2">
                 <PiNumberSquareThreeBold />
@@ -119,7 +117,7 @@ const Navbar = () => {
             <Link
               to="/visualizer"
               
-              className="group relative inline-block text-black dark:text-purple-500 hover:text-purple-700 dark:hover:text-purple-700 font-medium px-4 py-2 rounded-lg transition-all duration-300 hover:shadow-sm transform hover:scale-105"
+              className="group relative inline-block text-white hover:text-gray-200 font-medium px-4 py-2 rounded-lg transition-all duration-300 hover:shadow-sm transform hover:scale-105"
             >
               <span className="flex items-center font-extrabold gap-2">
                 <Eye />
@@ -135,7 +133,7 @@ const Navbar = () => {
             <Link
               to="/contact"
               
-              className="group relative inline-block text-black dark:text-purple-500 hover:text-purple-700 dark:hover:text-purple-700 font-medium px-4 py-2 rounded-lg transition-all duration-300 hover:shadow-sm transform hover:scale-105"
+              className="group relative inline-block text-white hover:text-gray-200 font-medium px-4 py-2 rounded-lg transition-all duration-300 hover:shadow-sm transform hover:scale-105"
             >
               <span className="flex items-center font-extrabold gap-2">
                 <Contact />
